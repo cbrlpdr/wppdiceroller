@@ -40,7 +40,9 @@ class Whatsappbot:
         btn.click()
 
         while(1):
+            tEspera=0.3 #tempo de espera para enviar a mensagem após digitá-la
             exp = self.driver.find_element_by_xpath("(//span[@class='_3Whw5 selectable-text invisible-space copyable-text']//span)[last()]")
+            sender = self.driver.find_element_by_xpath("(//div[@class='_274yw']//div[@class='copyable-text'])[last()]")
             time.sleep(1)
             cxtxt.click()
             command = exp.text
@@ -51,12 +53,12 @@ class Whatsappbot:
                     cxtxt.send_keys("Bot: Goodbye, sir.")
                     print("STOPPED BY USER")
                     btn = self.driver.find_element_by_xpath("//span[@data-icon='send']")
-                    time.sleep(1)
+                    time.sleep(tEspera)
                     btn.click()
                     exit(0)
 
                 #cxtxt.send_keys(exp.text)
-                print(command)
+                #print(command)
 
                 entrada = command
                 mod=0
@@ -67,18 +69,21 @@ class Whatsappbot:
                 if("+" in t):
                     posSinal=t.find("+")
                     mod=int(t[posSinal+1:len(t)])
-                    print(mod)
+                    #print(mod)
                     t=int(t[0:posSinal])
                 elif ("-" in t):
                     posSinal=t.find("-")
                     mod=int(t[posSinal+1:len(t)])*(-1)
-                    print(mod)
+                    #print(mod)
                     t=int(t[0:posSinal])
-                print(q)
+                #print(q)
                 t=int(t)
-                print(t)
+                #print(t)
 
-                mensagem = "Resultado: ("
+                nome=sender.get_attribute("data-pre-plain-text")
+                nome=nome.replace(nome[0:nome.find("]")+2],"")
+
+                mensagem = f"Resultado de {nome}("
                 res=0
                 for i in range(q):
                     roll=randint(1,t)
@@ -94,14 +99,15 @@ class Whatsappbot:
                     
                     res+=mod
 
+                
                 mensagem+=" = *" + str(res)+"*"
 
                 cxtxt.send_keys(mensagem)
                 btn = self.driver.find_element_by_xpath("//span[@data-icon='send']")
-                time.sleep(1)
+                time.sleep(tEspera)
                 btn.click()
 
-            time.sleep(1)
+            time.sleep(tEspera)
     
     
             
