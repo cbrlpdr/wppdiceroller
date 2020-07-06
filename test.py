@@ -9,9 +9,9 @@ q=int(entrada[0:posD])
 t=entrada[posD+1:(len(entrada))]
 
 for c in t:
-    if((not c.isnumeric) and c!='+' and c!='-'):
+    if((not c.isnumeric()) and c!='+' and c!='-'):
         t=t.replace(c,'')
-        print("Replace")
+        
     
 
 if("+" in t):
